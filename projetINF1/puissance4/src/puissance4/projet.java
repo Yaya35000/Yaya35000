@@ -17,9 +17,17 @@ public class projet {
             		System.out.println();
         	}
 	}
-	public static void initialisationGrille (int [][] tab){
-		
+	static int [][] grille;
+	public static int[][] initialisationGrille (){
+		grille = new int[6][7];
+		for(int i= 0; i<grille.length; i++){
+			for(int j = 0; j< grille[i].length; j++){
+				grille[i][j] = 0;
+			}
+		}
+		return grille;
 	}
+	
 	public static void main(String[] args) {
 
 	}
