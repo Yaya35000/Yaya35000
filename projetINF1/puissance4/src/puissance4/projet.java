@@ -27,7 +27,16 @@ public class projet {
 		}
 		return grille;
 	}
-	
+	public static void jouer (int joueur, int colonne) {
+		for(int i = 0; i<grille.length; i++) {
+			if(i==5) {
+				grille[i][colonne]=joueur;
+			}
+			else if (grille[i][colonne]!=0){
+				grille[i-1][colonne]=joueur;
+			}
+		}
+	}
 	public static void main(String[] args) {
 
 	}
