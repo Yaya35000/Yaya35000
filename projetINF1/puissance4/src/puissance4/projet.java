@@ -32,8 +32,8 @@ public class projet {
 			if(i==5) {
 				grille[i][colonne]=joueur;
 			}
-			else if (grille[i][colonne]!=0){
-				grille[i-1][colonne]=joueur;
+			else if (grille[i+1][colonne]!=0){
+				grille[i][colonne]=joueur;
 			}
 		}
 	}
@@ -41,8 +41,16 @@ public class projet {
 		
 		for(int i=0;i<grille.length;i++) {
 			for(int j=0;j<grille[i].length;j++) {
-				if(j==0) System.out.print("|"+" "+"|");
-				else System.out.print(" "+"|");
+				if(j==0) {
+					if(grille[i][j]==0) System.out.print("|"+" "+"|");
+					else if(grille[i][j]==1) System.out.print("|"+"X"+"|");
+					else System.out.print("|"+"O"+"|");
+				}
+				else {
+					if(grille[i][j]==0) System.out.print(" "+"|");
+					else if(grille[i][j]==1) System.out.print("X"+"|");
+					else System.out.print("O"+"|");
+				}
 			}
 			System.out.println();
 		}
