@@ -8,6 +8,8 @@ public class projet {
 		//Retourne un entier aléatoire entre a (inclus) et b (inclus)
 		return ThreadLocalRandom.current().nextInt(a, b + 1);	
 	}
+	public static 
+	
 
 	public static void main(String[] args) {
 
