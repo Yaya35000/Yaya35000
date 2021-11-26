@@ -37,6 +37,20 @@ public class projet {
 			}
 		}
 	}
+	public static void afficheGrille() {
+		
+		for(int i=0;i<grille.length;i++) {
+			for(int j=0;j<grille[i].length;j++) {
+				if(j==0) System.out.print("|"+" "+"|");
+				else System.out.print(" "+"|");
+			}
+			System.out.println();
+		}
+		System.out.print("|");
+		for(int k=0;k<grille[0].length;k++) {
+			if(k<7) System.out.print(k +"|");
+		}
+	}
 	public static void main(String[] args) {
 
 	}
