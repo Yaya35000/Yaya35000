@@ -17,7 +17,7 @@ public class projet {
             		System.out.println();
         	}
 	}
-	public static void grille (int [][] tab){
+	public static void initialisationGrille (int [][] tab){
 		
 	}
 	public static void main(String[] args) {
