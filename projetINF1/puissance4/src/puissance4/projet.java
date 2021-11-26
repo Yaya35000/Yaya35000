@@ -8,9 +8,15 @@ public class projet {
 		//Retourne un entier aléatoire entre a (inclus) et b (inclus)
 		return ThreadLocalRandom.current().nextInt(a, b + 1);	
 	}
-	public static 
-	
-
+	public static void afficheTab2D(int tab [][]){
+		System.out.println("\n");
+        	for(int i=0;i<tab.length;i++) {
+            		for(int j=0;j<tab[i].length;j++) {
+                		System.out.print(tab[i][j]+" ");
+            		}
+            		System.out.println();
+        	}
+	}
 	public static void main(String[] args) {
 
 	}
