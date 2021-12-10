@@ -62,4 +62,71 @@ public class projet {
 	public static void main(String[] args) {
 
 	}
+	public static boolean aGagneHor (int x, int joueur) {
+        int compteur = 0;
+        for(int j=0;j<grille[x].length;j++) {
+            if(caseCorrecte(x, j+1) == true) {
+            	 if(grille[x][j]==joueur) {
+                     compteur +=1;
+                 }
+                 else {
+                     compteur = 0;
+                 }
+             }
+             if (compteur == 4) return true;
+         }     
+        return false;
+    }
+	public static boolean aGagneVer (int x, int joueur) {
+        int compteur = 0;
+        for(int i=0;i<grille.length;i++) {
+            if(caseCorrecte(i, x+1) == true) {
+                if(grille[i][x]==joueur) {
+                    compteur +=1;
+                }
+                else if(grille[i][x]!=joueur) {
+                    compteur = 0;
+                }
+            }
+            if (compteur == 4) return true;
+        }
+        return false;
+    }
+	public static boolean aGagneDiagMont (int x, int y, int joueur) {
+        int compteur = 0;
+        int o=x;
+        int a=y;
+        if(!caseCorrecte(o, a)) return false;
+        while(caseCorrecte(o, a)) {
+        	if(grille[o][a]==joueur) {
+        		compteur+=1;
+        		if(compteur==4) return true;
+        	}
+        	else compteur=0;
+        	o-=1;
+        	a+=1;
+        	
+        }
+        return false;
+        
+    }
+	
+	public static boolean aGagneDiagDesc (int x, int y, int joueur) {
+        int compteur = 0;
+        int o=x;
+        int a=y;
+        if(!caseCorrecte(o, a)) return false;
+        while(caseCorrecte(o, a)) {
+        	if(grille[o][a]==joueur) {
+        		compteur+=1;
+        		if(compteur==4) return true;
+        	}
+        	else compteur=0;
+        	o+=1;
+        	a+=1;
+        	
+        }
+        return false;
+        
+    }
 }
