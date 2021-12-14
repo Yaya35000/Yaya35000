@@ -148,5 +148,23 @@ public class projet {
 		if(verifierPremièreLigne() && !aGagne(1) && !aGagne(2)) return true;
 		else return false;
 	}
+	static int joueur=1;
+	public static int phase1() {
+		afficheGrille();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Quel coup pour le joueur "+joueur+" ?");
+		int n=sc.nextInt();
+		sc.close();
+		return n;
+	}
+	public static void phase2(int coup) {
+		jouer(joueur, coup);
+		joueur=3-joueur;
+	}
+	public static void boucle() {
+		while((!aGagne(1) && aGagne(2))||matchNul()){
+			phase2(phase1());
+		}
+	}
 
 }
