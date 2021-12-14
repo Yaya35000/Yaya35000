@@ -58,6 +58,7 @@ public class projet {
 		for(int k=0;k<grille[0].length;k++) {
 			if(k<7) System.out.print(k +"|");
 		}
+		System.out.println();
 	}
 	public static void main(String[] args) {
 
