@@ -170,7 +170,7 @@ public class projet {
 		joueur=3-joueur;
 	}
 	public static void boucle() {
-		while((!aGagne(1) && aGagne(2))||matchNul()){
+		while((!aGagne(1) && !aGagne(2))||matchNul()){
 			phase2(phase1());
 		}
 	}
