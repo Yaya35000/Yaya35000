@@ -137,5 +137,41 @@ public class projet {
 		}
 		return false;
 	}
+	public static boolean verifierPremièreLigne() {
+		for(int j=0;j<grille[0].length;j++) {
+			if(grille[0][j]==0) return false;
+		}
+		return true;
+	}
+	public static boolean matchNul() {
+		if(verifierPremièreLigne() && !aGagne(1) && !aGagne(2)) return true;
+		else return false;
+	}
+	static int joueur=1;
+	public static int phase1() {
+		afficheGrille();
+		Scanner sc = new Scanner(System.in);
+		boolean check=false;
+		int c=0;
+		while(!check) {
+			System.out.println("Quel coup pour le joueur "+joueur+" ?");
+			c=sc.nextInt();
+			if(c<0||c>6) {
+				System.out.println("Coup invalide");
+			}
+			else check=true;
+		}
+		sc.close();
+		return c;
+	}
+	public static void phase2(int coup) {
+		jouer(joueur, coup);
+		joueur=3-joueur;
+	}
+	public static void boucle() {
+		while((!aGagne(1) && !aGagne(2))||matchNul()){
+			phase2(phase1());
+		}
+	}
 
 }
