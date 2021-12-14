@@ -152,10 +152,18 @@ public class projet {
 	public static int phase1() {
 		afficheGrille();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Quel coup pour le joueur "+joueur+" ?");
-		int n=sc.nextInt();
+		boolean check=false;
+		int c=0;
+		while(!check) {
+			System.out.println("Quel coup pour le joueur "+joueur+" ?");
+			c=sc.nextInt();
+			if(c<0||c>6) {
+				System.out.println("Coup invalide");
+			}
+			else check=true;
+		}
 		sc.close();
-		return n;
+		return c;
 	}
 	public static void phase2(int coup) {
 		jouer(joueur, coup);
