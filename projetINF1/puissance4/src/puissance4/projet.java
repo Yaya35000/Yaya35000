@@ -137,5 +137,14 @@ public class projet {
 		}
 		return false;
 	}
+	public static boolean verifierPremièreLigne() {
+		for(int j=0;j<grille[0].length;j++) {
+			if(grille[0][j]==0) return false;
+		}
+		return true;
+	}
+	public static boolean matchNul() {
+		if(verifierPremièreLigne() && !aGagne(1) && !aGagne(2)) return true;
+		else return false;
 
 }
