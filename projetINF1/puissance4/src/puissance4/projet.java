@@ -146,5 +146,6 @@ public class projet {
 	public static boolean matchNul() {
 		if(verifierPremièreLigne() && !aGagne(1) && !aGagne(2)) return true;
 		else return false;
+	}
 
 }
