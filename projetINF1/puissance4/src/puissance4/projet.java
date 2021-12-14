@@ -173,5 +173,15 @@ public class projet {
 			phase2(phase1());
 		}
 	}
+	public static void jeu() {
+		initialisationGrille();
+		boucle();
+		afficheGrille();
+		if(aGagne(1)) System.out.println("Le joueur 1 a gagné !");
+		else if(aGagne(2)) System.out.println("Le joueur 2 a gagné !");
+		else {
+			if(matchNul()) System.out.println("Match nul !");
+		}
+	}
 
 }
