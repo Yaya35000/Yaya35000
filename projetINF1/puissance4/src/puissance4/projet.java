@@ -254,13 +254,129 @@ public class projet {
 		}
 		return false;
 	}
+	public static boolean opportunitéDiagMont(int x, int y) {
+		int a=x;
+		int o=y;
+		int compteur=0;
+		while(o>6 || a<0) {
+			if(caseCorrecte(a, o)) {
+				if(grille[a][o]==2) compteur+=1;
+				else compteur = 0;
+				if(compteur==3 && caseCorrecte(a-1, o+1) && caseCorrecte(a, o+1)) {
+					if(grille[a][o+1]!=0) {
+						jouer(2, o+1);
+						return true;
+					}
+				}
+				else if(compteur==3 && caseCorrecte(a+compteur, o-compteur) && caseCorrecte(a+compteur+1, o-compteur)) {
+					if(grille[a+compteur+1][o-compteur]!=0) {
+						jouer(2, o-compteur);
+						return true;
+					}
+					else compteur=0;
+				}
+			}
+			else return false;
+			o-=1;
+			a+=1;
+		}
+		System.out.println("Bwoah");
+		return false;
+	}
+	
+	public static boolean opportunitéDiagDesc(int x, int y) {
+		int a=x;
+		int o=y;
+		int compteur=0;
+		while(o>6 || a>5) {
+			if(caseCorrecte(a, o)) {
+				if(grille[a][o]==2) compteur+=1;
+				else compteur = 0;
+				if(compteur==3 && caseCorrecte(a+1, o+1)) {
+					if(caseCorrecte(a+2, o+1)) {
+						if(grille[a+2][o+1]!=0) {
+							jouer(2, a+1);
+							return true;
+						}
+					}
+					else if(a+1==5 && grille[a+1][o+1]==0) jouer(2, a+1);
+				}
+				else if(compteur==3 && caseCorrecte(a-compteur, o-compteur) && caseCorrecte(a-compteur+1, o-compteur)) {
+					if(grille[a-compteur+1][o-compteur]!=0) {
+						jouer(2, o-compteur);
+						return true;
+					}
+					else compteur=0;
+				}
+			}
+			o+=1;
+			a+=1;
+		}
+		System.out.println("Check");
+		return false;
+	}
+	public static boolean opportunitéeVictoire() {
+		if(opportunitéeHor()) return true;
+		else if(opportunitéVer()) return true;
+		for(int i=0;i<grille.length;i++) {
+			for(int j=0;j<grille[i].length;j++) {
+				if(opportunitéDiagMont(i, j)) return true;
+				if(opportunitéDiagDesc(i, j)) return true;
+			}
+		}
+		return false;
+	}
+	public static void joueCoupRandom2() {
+		if (!opportunitéeVictoire()) joueCoupRandom();
+	}
+	
+	public static void boucleIA2() {
+		Scanner sc = new Scanner(System.in);
+		while((!aGagne(1) && !aGagne(2)) && !matchNul()){
+			afficheGrille();
+			boolean check=false;
+			int c=0;
+			while(!check) {
+				System.out.println("Quel coup pour le joueur "+joueur+" ?");
+				c=sc.nextInt();
+				if(c<0||c>6) {
+					System.out.println("Coup invalide");
+				}
+				else check=true;
+			}
+			jouer(joueur, c);
+			joueCoupRandom2();
+		}
+		sc.close();
+	}
+	public static void jeuIA2() {
+		initialisationGrille();
+		boucleIA2();
+		afficheGrille();
+		if(aGagne(1) == true) System.out.println("le joueur 1 a gagné !");
+		else if(aGagne(2)== true) System.out.println("L'IA a gagné !");
+		else {
+			if(matchNul() == true) System.out.println("Match Nul !");
+		}
+	} 
+	
 	public static void main(String[] args){
 		Scanner s = new Scanner(System.in);
 		System.out.println("2 Joueurs (1)");
 		System.out.println("Contre l'IA (0)");
 		int n=s.nextInt();
 		if(n==1) jeu();
-		else if(n==0) jeuIA();
+		else if(n==0) {
+			System.out.println("Niveau 1 (1)");
+			System.out.println("Niveau 2 (2)");
+			System.out.println("Niveau 3 (3)");
+			n=s.nextInt();
+			if(n==1) jeuIA();
+			else if(n==2) jeuIA2();
+		}
 		s.close();
+		
+		
+		
 	}
 }
