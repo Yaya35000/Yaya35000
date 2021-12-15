@@ -172,7 +172,95 @@ public class projet {
 			if(matchNul() == true) System.out.println("Match Nul !");
 		}
 	} 
+	public static void joueCoupRandom() {
+		boolean check=false;
+		int joue=0;
+		while(!check) {
+			joue=entierAleatoire(0, 6);
+			if(grille[0][joue]==0) check=true;
+		}
+		jouer(2, joue);
+	}
+	
+	public static void boucleIA() {
+		Scanner sc = new Scanner(System.in);
+		while((!aGagne(1) && !aGagne(2)) && !matchNul()){
+			afficheGrille();
+			boolean check=false;
+			int c=0;
+			while(!check) {
+				System.out.println("Quel coup pour le joueur "+joueur+" ?");
+				c=sc.nextInt();
+				if(c<0||c>6) {
+					System.out.println("Coup invalide");
+				}
+				else check=true;
+			}
+			jouer(joueur, c);
+			joueCoupRandom();
+		}
+		sc.close();
+	}
+	public static void jeuIA() {
+		initialisationGrille();
+		boucleIA();
+		afficheGrille();
+		if(aGagne(1) == true) System.out.println("le joueur 1 a gagné !");
+		else if(aGagne(2)== true) System.out.println("L'IA a gagné !");
+		else {
+			if(matchNul() == true) System.out.println("Match Nul !");
+		}
+	} 
+	public static boolean opportunitéeHor() {
+		int compteur=0;
+		for(int i=0;i<grille.length;i++) {
+			for(int j=0;j<grille[i].length;j++) {
+				if(grille[i][j]==2)compteur+=1;
+				else compteur=0;
+				if(compteur==3 && caseCorrecte(i, j)) {
+					if(grille[i][j+1]==0) {
+						jouer(2, j+1);
+						return true;
+					}
+				}
+				else if(compteur==3 && caseCorrecte(i, j-compteur)) {
+					if(grille[i][j-compteur]==0) {
+						jouer(2, j-compteur);
+						return true;
+					}
+					else compteur=0;
+				}
+			}
+			compteur=0;
+		}
+		return false;
+	}
+	public static boolean opportunitéVer() {
+		int compteur=0;
+		for(int j=0;j<grille[0].length;j++) {
+			for(int i=0;i<grille.length;i++) {
+				if(grille[i][j]==2) compteur+=1;
+				else compteur=0;
+				if(compteur==3 && caseCorrecte(i-compteur, j)) {
+					if(grille[i-compteur][j]==0) {
+						jouer(i-compteur, j);
+						return true;
+					}
+					else compteur=0;
+				}
+				else compteur=0;
+			}
+			compteur=0;
+		}
+		return false;
+	}
 	public static void main(String[] args){
-		jeu();
+		Scanner s = new Scanner(System.in);
+		System.out.println("2 Joueurs (1)");
+		System.out.println("Contre l'IA (0)");
+		int n=s.nextInt();
+		if(n==1) jeu();
+		else if(n==0) jeuIA();
+		s.close();
 	}
 }
