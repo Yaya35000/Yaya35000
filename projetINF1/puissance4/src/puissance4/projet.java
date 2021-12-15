@@ -80,11 +80,11 @@ public class projet {
 	public static boolean aGagneVer (int x, int y, int joueur) {
         int compteur = 0;
         for(int i=x;i<grille.length;i++) {
-            if(caseCorrecte(x,i) == true) {
-                if(grille[x][i]==joueur) {
+            if(caseCorrecte(i,y) == true) {
+                if(grille[i][y]==joueur) {
                     compteur +=1;
                 }
-                else if(grille[x][i]!=joueur) {
+                else if(grille[i][y]!=joueur) {
                     compteur = 0;
                 }
             }
