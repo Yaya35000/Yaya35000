@@ -280,7 +280,6 @@ public class projet {
 			o-=1;
 			a+=1;
 		}
-		System.out.println("Bwoah");
 		return false;
 	}
 	
@@ -312,7 +311,6 @@ public class projet {
 			o+=1;
 			a+=1;
 		}
-		System.out.println("Check");
 		return false;
 	}
 	public static boolean opportunitéeVictoire() {
@@ -358,9 +356,157 @@ public class projet {
 		else {
 			if(matchNul() == true) System.out.println("Match Nul !");
 		}
+	}
+	
+	public static boolean opportunitéeDefHor() {
+		int compteur=0;
+		for(int i=0;i<grille.length;i++) {
+			for(int j=0;j<grille[i].length;j++) {
+				if(grille[i][j]==1)compteur+=1;
+				else compteur=0;
+				if(compteur==3 && caseCorrecte(i, j) && caseCorrecte(i, j+1)) {
+					if(grille[i][j+1]==0) {
+						jouer(2, j+1);
+						return true;
+					}
+				}
+				else if(compteur==3 && caseCorrecte(i, j-compteur)) {
+					if(grille[i][j-compteur]==0) {
+						jouer(2, j-compteur);
+						return true;
+					}
+					else compteur=0;
+				}
+			}
+			compteur=0;
+		}
+		return false;
+	}
+	public static boolean opportunitéDefVer() {
+		int compteur=0;
+		for(int j=0;j<grille[0].length;j++) {
+			for(int i=0;i<grille.length;i++) {
+				if(grille[i][j]==1) compteur+=1;
+				else compteur=0;
+				if(compteur==3 && caseCorrecte(i-compteur, j)) {
+					if(grille[i-compteur][j]==0) {
+						jouer(i-compteur, j);
+						return true;
+					}
+					else compteur=0;
+				}
+				else compteur=0;
+			}
+			compteur=0;
+		}
+		return false;
+	}
+	public static boolean opportunitéDefDiagMont(int x, int y) {
+		int a=x;
+		int o=y;
+		int compteur=0;
+		while(o>6 || a<0) {
+			if(caseCorrecte(a, o)) {
+				if(grille[a][o]==1) compteur+=1;
+				else compteur = 0;
+				if(compteur==3 && caseCorrecte(a-1, o+1) && caseCorrecte(a, o+1)) {
+					if(grille[a][o+1]!=0) {
+						jouer(2, o+1);
+						return true;
+					}
+				}
+				else if(compteur==3 && caseCorrecte(a+compteur, o-compteur) && caseCorrecte(a+compteur+1, o-compteur)) {
+					if(grille[a+compteur+1][o-compteur]!=0) {
+						jouer(2, o-compteur);
+						return true;
+					}
+					else compteur=0;
+				}
+			}
+			else return false;
+			o-=1;
+			a+=1;
+		}
+		return false;
+	}
+	
+	public static boolean opportunitéDefDiagDesc(int x, int y) {
+		int a=x;
+		int o=y;
+		int compteur=0;
+		while(o>6 || a>5) {
+			if(caseCorrecte(a, o)) {
+				if(grille[a][o]==1) compteur+=1;
+				else compteur = 0;
+				if(compteur==3 && caseCorrecte(a+1, o+1)) {
+					if(caseCorrecte(a+2, o+1)) {
+						if(grille[a+2][o+1]!=0) {
+							jouer(2, a+1);
+							return true;
+						}
+					}
+					else if(a+1==5 && grille[a+1][o+1]==0) jouer(2, a+1);
+				}
+				else if(compteur==3 && caseCorrecte(a-compteur, o-compteur) && caseCorrecte(a-compteur+1, o-compteur)) {
+					if(grille[a-compteur+1][o-compteur]!=0) {
+						jouer(2, o-compteur);
+						return true;
+					}
+					else compteur=0;
+				}
+			}
+			o+=1;
+			a+=1;
+		}
+		return false;
+	}
+	public static boolean opportunitéeDefense() {
+		if(opportunitéeDefHor()) return true;
+		else if(opportunitéDefVer()) return true;
+		for(int i=0;i<grille.length;i++) {
+			for(int j=0;j<grille[i].length;j++) {
+				if(opportunitéDefDiagMont(i, j)) return true;
+				if(opportunitéDefDiagDesc(i, j)) return true;
+			}
+		}
+		return false;
+	}
+	public static void joueCoupRandom3() {
+		if (!opportunitéeDefense()) joueCoupRandom();
+	}
+	
+	public static void boucleIA3() {
+		Scanner sc = new Scanner(System.in);
+		while((!aGagne(1) && !aGagne(2)) && !matchNul()){
+			afficheGrille();
+			boolean check=false;
+			int c=0;
+			while(!check) {
+				System.out.println("Quel coup pour le joueur "+joueur+" ?");
+				c=sc.nextInt();
+				if(c<0||c>6) {
+					System.out.println("Coup invalide");
+				}
+				else check=true;
+			}
+			jouer(joueur, c);
+			joueCoupRandom3();
+		}
+		sc.close();
+	}
+	public static void jeuIA3() {
+		initialisationGrille();
+		boucleIA3();
+		afficheGrille();
+		if(aGagne(1) == true) System.out.println("le joueur 1 a gagné !");
+		else if(aGagne(2)== true) System.out.println("L'IA a gagné !");
+		else {
+			if(matchNul() == true) System.out.println("Match Nul !");
+		}
 	} 
 	
 	public static void main(String[] args){
+		System.out.println("Puissance 4 ! (Par Cecilia Duchene et Sébastien Kinder)");
 		Scanner s = new Scanner(System.in);
 		System.out.println("2 Joueurs (1)");
 		System.out.println("Contre l'IA (0)");
@@ -373,10 +519,9 @@ public class projet {
 			n=s.nextInt();
 			if(n==1) jeuIA();
 			else if(n==2) jeuIA2();
+			else jeuIA3();
 		}
-		s.close();
-		
-		
-		
+		else System.out.print("Erreur !");
+		s.close();	
 	}
 }
